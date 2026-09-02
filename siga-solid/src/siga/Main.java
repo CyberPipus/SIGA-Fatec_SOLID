@@ -31,7 +31,7 @@ public class Main {
         System.out.println();
 
         Matricula m1 = new Matricula(alunos.get(0), 1000.0, new DescontoBolsista(), new GravadorMySQL());
-        Matricula m2 = new Matricula(alunos.get(1), 1000.0, new SemDesconto(), new GravadorMySQL());
+        Matricula m2 = new Matricula(alunos.get(1), 1000.0, new SemDesconto(), new GravadorArquivo());
         System.out.println("Mensalidade (bolsista): " + m1.calcularMensalidade());
         System.out.println("Mensalidade (sem desconto): " + m2.calcularMensalidade());
 

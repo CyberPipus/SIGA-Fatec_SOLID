@@ -53,7 +53,8 @@ R: Anteriormente, a classe "Matricula" decidia o desconto comparando um "String"
 A solução condiz ao padrão Strategy de Gamma et al. (1994).
 
 4. **Inverter** a dependência: crie uma interface (por exemplo, `MatriculaRepositorio`) que `GravadorMySQL` implemente, e faça `Matricula` depender da interface — recebendo-a pelo construtor — em vez de instanciar a classe concreta (DIP).
-R:
+R: Antes, a "Matricula" instanciava "GravadorMySQL" diretamente, decidindo por conta a tecnologia de persistência. Agora passa a depender da interface "MatriculaRepositorio", recebida por construtor, e o "GravadorMySQL" é aquilo que passa a implementar. Portanto invertemos a dependência: detalhe técnico aponta para abstração, e não o contrário. Por fim, quem quiser trocar o meio de gravação não precisará alterar nada em "Matricula".
+A solução condiz com a injeção por construtor conforme Bloch (Effective Java, Item 5), abstração no padrão Repository descrita por Fowler (2002) e o princípio formulado por Martin (2002).
 
 5. **Listar**, no README da sua entrega, os *code smells* que você encontrou no código original.
 R:
