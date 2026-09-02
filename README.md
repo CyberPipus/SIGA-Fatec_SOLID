@@ -57,7 +57,7 @@ R: Antes, a "Matricula" instanciava "GravadorMySQL" diretamente, decidindo por c
 A solução condiz com a injeção por construtor conforme Bloch (Effective Java, Item 5), abstração no padrão Repository descrita por Fowler (2002) e o princípio formulado por Martin (2002).
 
 5. **Listar**, no README da sua entrega, os *code smells* que você encontrou no código original.
-R:
+R: Ao analisar e refatorar o código-fonte do SIGA, percebeu-se a presença de "code smells" que violavam princípios clássicos de programação orientada a objetos, conforme mapeados na literatura de Martin Fowler e Robert C. Martin. Na classe "RelatorioAluno", identifica-se o cheiro decorrente da violação do SRP, dado que a classe centralizava indevidamente funções de formatação de texto, gravação de arquivos e protocolos de e-mail. No método "calcularMensalidade" da classe Matricula, o uso de blocos condicionais encadeados caracterizava um cadadeia de "if/else" e a violação do OCP, impedindo a expansão de novos descontos sem a modificação do código existente. Além disso, a instanciação direta da classe concreta "GravadorMySQL" em "Matricula" gerava um acoplamento forte, infringindo o DIP e comprometendo a testabilidade do sistema. Por fim, o uso de Strings literais para representar domínios de negócio reduzia a segurança de tipagem da linguagem Java. Para sanar esses problemas, decompô-se a responsabilidades, adotou-se o padrão de projeto Strategy para as regras de desconto e a introduziu-se a injeção de dependências por meio de interfaces.
 
 ## Critério de sucesso
 
