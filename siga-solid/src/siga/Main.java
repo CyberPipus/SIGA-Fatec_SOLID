@@ -30,13 +30,12 @@ public class Main {
 
         System.out.println();
 
-        Matricula m1 = new Matricula(alunos.get(0), 1000.0, new DescontoBolsista());
-        Matricula m2 = new Matricula(alunos.get(1), 1000.0, new SemDesconto());
+        Matricula m1 = new Matricula(alunos.get(0), 1000.0, new DescontoBolsista(), new GravadorMySQL());
+        Matricula m2 = new Matricula(alunos.get(1), 1000.0, new SemDesconto(), new GravadorMySQL());
         System.out.println("Mensalidade (bolsista): " + m1.calcularMensalidade());
         System.out.println("Mensalidade (sem desconto): " + m2.calcularMensalidade());
 
-        // PROBLEMA 3 (DIP): Matricula depende diretamente de GravadorMySQL.
-        m1.salvar();
-        m2.salvar();
+        m1.gravar();
+        m2.gravar();
     }
 }

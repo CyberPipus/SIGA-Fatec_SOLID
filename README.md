@@ -52,9 +52,11 @@ R: Agora temos `RelatorioFormatador`, `RelatorioRepositorio`, `ServicoEmail` pre
 R: Anteriormente, a classe "Matricula" decidia o desconto comparando um "String", forçando sua modificação caso surgisse um novo tipo. Com a implementação da interface "Desconto" como regra, a Matricula recebe um Desconto e o calcularMensalidade delega o cálculo a ele, corrigindo a violação do OCP da antiga comparação por "String", assim como catalogado por Fowler, que é substituição de condicionais por polimorfismo. Agora, um desconto novo é um arquivo novo, sem alterar nenhuma linha de código em "Matricula", provado pela saída no "Terminal" ainda sendo 500.0 e 1000.0. Para a mensalidade sem desconto é aplicado um NullObject, o que elimina a dependência de um if para cada vez que não é aplicado um desconto.
 A solução condiz ao padrão Strategy de Gamma et al. (1994).
 
-
 4. **Inverter** a dependência: crie uma interface (por exemplo, `MatriculaRepositorio`) que `GravadorMySQL` implemente, e faça `Matricula` depender da interface — recebendo-a pelo construtor — em vez de instanciar a classe concreta (DIP).
+R:
+
 5. **Listar**, no README da sua entrega, os *code smells* que você encontrou no código original.
+R:
 
 ## Critério de sucesso
 
