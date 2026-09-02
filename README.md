@@ -43,10 +43,16 @@ java -cp bin siga.Main
 Siga as etapas da ficha de atividade prática. Em resumo:
 
 1. **Analisar** a classe `RelatorioAluno` e identificar, por escrito, as responsabilidades misturadas (SRP).
-R: A classe 'RelatorioAluno' possuía três responsabilidades: 1 - receber uma lista e a converter em texto; 2 - gravar tal texto no disco por um caminho específico e 3 - enviar o mesmo texto por e-mail para o destinatário desejado. O Princípio de Responsabilidade Única (Single Responsibility Principle - SRP) descreve que uma classe somente deve ser responsável perante um ator, por exemplo, a coordenação requer o recebimento de uma lista que já esteja em um formato de texto. O setor de TI é quem precisa aprovar ou não gravações deste texto em um disco por um caminho específico. A direção é quem regula o envio dos textos por e-mail para alunos, professores ou coordenadores. Com a distinção de três atores, espera-se três classes distintas para atendê-los. 
+R: A classe 'RelatorioAluno' possuía três responsabilidades: 1 - receber uma lista e a converter em texto; 2 - gravar tal texto no disco por um caminho específico e 3 - enviar o mesmo texto por e-mail para o destinatário desejado. O Princípio de Responsabilidade Única (Single Responsibility Principle - SRP) descreve que uma classe somente deve ser responsável perante um ator, por exemplo, a coordenação requer o recebimento de uma lista que já esteja em um formato de texto. O setor de TI é quem precisa aprovar ou não gravações deste texto em um disco por um caminho específico. A direção é quem regula o envio dos textos por e-mail para alunos, professores ou coordenadores. Com a distinção de três atores, espera-se três classes distintas para atendê-los.
+
 2. **Separar** cada responsabilidade em sua própria classe (por exemplo: `RelatorioFormatador`, `RelatorioRepositorio`, `ServicoEmail`), cada uma com um único motivo para mudar.
 R: Agora temos `RelatorioFormatador`, `RelatorioRepositorio`, `ServicoEmail` presentes e operantes no código.
+
 3. **Substituir** o bloco condicional de `calcularMensalidade` por polimorfismo: crie uma interface `Desconto` com um método `aplicar(double valor)` e uma classe para cada tipo (`DescontoBolsista`, `DescontoConvenio`, `DescontoFuncionario`, `SemDesconto`). Assim, um novo desconto passa a ser uma nova classe, sem modificar `Matricula` (OCP).
+R: Anteriormente, a classe "Matricula" decidia o desconto comparando um "String", forçando sua modificação caso surgisse um novo tipo. Com a implementação da interface "Desconto" como regra, a Matricula recebe um Desconto e o calcularMensalidade delega o cálculo a ele, corrigindo a violação do OCP da antiga comparação por "String", assim como catalogado por Fowler, que é substituição de condicionais por polimorfismo. Agora, um desconto novo é um arquivo novo, sem alterar nenhuma linha de código em "Matricula", provado pela saída no "Terminal" ainda sendo 500.0 e 1000.0. Para a mensalidade sem desconto é aplicado um NullObject, o que elimina a dependência de um if para cada vez que não é aplicado um desconto.
+A solução condiz ao padrão Strategy de Gamma et al. (1994).
+
+
 4. **Inverter** a dependência: crie uma interface (por exemplo, `MatriculaRepositorio`) que `GravadorMySQL` implemente, e faça `Matricula` depender da interface — recebendo-a pelo construtor — em vez de instanciar a classe concreta (DIP).
 5. **Listar**, no README da sua entrega, os *code smells* que você encontrou no código original.
 
